@@ -1,14 +1,13 @@
 FROM alpine:latest
 MAINTAINER "Levent SAGIROGLU" <LSagiroglu@gmail.com>
-# Upgrade
-RUN apk update
-RUN apk upgrade
-RUN apk add ca-certificates && update-ca-certificates
-# Change TimeZone
-RUN apk add --update tzdata
-RUN cp /usr/share/zoneinfo/Europe/Istanbul /etc/localtime
-RUN echo "Europe/Istanbul" >  /etc/timezone
-RUN apk del tzdata
+
+ARG TIMEZONE=Europe/Istanbul
+
+RUN apk add --update --no-cache tar tzdata ca-certificates && \
+       update-ca-certificates && \
+       cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+       echo "${TIMEZONE}" >  /etc/timezone && \
+    apk del tzdata
 
 ENV APPNAME "goapp"
 
