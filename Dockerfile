@@ -4,7 +4,7 @@ LABEL maintainer "Levent SAGIROGLU <LSagiroglu@gmail.com>"
 ENV APPNAME "goapp"
 
 VOLUME /shared
-COPY srv /shared
+COPY shared /shared
 COPY bin /bin
 
 EXPOSE 80
