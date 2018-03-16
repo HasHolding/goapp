@@ -1,18 +1,10 @@
-FROM alpine:latest
-MAINTAINER "Levent SAGIROGLU" <LSagiroglu@gmail.com>
-
-ARG TIMEZONE=Europe/Istanbul
-
-RUN apk add --update --no-cache tar tzdata ca-certificates && \
-       update-ca-certificates && \
-       cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
-       echo "${TIMEZONE}" >  /etc/timezone && \
-    apk del tzdata
+FROM hasholding/alpine-base
+LABEL maintainer "Levent SAGIROGLU <LSagiroglu@gmail.com>"
 
 ENV APPNAME "goapp"
 
-VOLUME /srv
-COPY srv /srv
+VOLUME /shared
+COPY srv /shared
 COPY bin /bin
 
 EXPOSE 80
